@@ -1,0 +1,213 @@
+;
+; Archive created at 2026-08-04 06:35:07 UTC
+;     dbname: postgres
+;     TOC Entries: 204
+;     Compression: gzip
+;     Dump Version: 1.16-0
+;     Format: CUSTOM
+;     Integer: 4 bytes
+;     Offset: 8 bytes
+;     Dumped from database version: 17.6
+;     Dumped by pg_dump version: 17.10 (Debian 17.10-1.pgdg13+1)
+;
+;
+; Selected TOC Entries:
+;
+;40; 2615 2200 SCHEMA - public pg_database_owner
+;4646; 0 0 COMMENT - SCHEMA public pg_database_owner
+539; 1255 18785 FUNCTION public delete_knowledge_folder_keep_contents(uuid, uuid) postgres
+487; 1255 21432 FUNCTION public handle_new_user() postgres
+515; 1255 18175 FUNCTION public increment_knowledge_reference_count(uuid) postgres
+480; 1255 18784 FUNCTION public match_knowledge_chunks(public.vector, uuid, integer, uuid) postgres
+587; 1255 26947 FUNCTION public match_knowledge_chunks_hybrid(public.vector, text[], uuid, integer, uuid, double precision, double precision) postgres
+610; 1255 20473 FUNCTION public match_knowledge_semantic_cache(public.vector, text, uuid, double precision) postgres
+446; 1255 19213 FUNCTION public set_updated_at() postgres
+398; 1259 17990 TABLE public agent_runs postgres
+421; 1259 19342 TABLE public ai_usage_logs postgres
+427; 1259 20020 TABLE public booking_settings postgres
+433; 1259 21923 TABLE public builtin_rule_overrides postgres
+4647; 0 0 COMMENT public TABLE builtin_rule_overrides postgres
+426; 1259 19894 TABLE public calendar_integrations postgres
+413; 1259 18457 TABLE public checkpoint_blobs postgres
+411; 1259 18443 TABLE public checkpoint_migrations postgres
+414; 1259 18465 TABLE public checkpoint_writes postgres
+412; 1259 18448 TABLE public checkpoints postgres
+400; 1259 18027 TABLE public conversation_messages postgres
+399; 1259 18012 TABLE public conversations postgres
+422; 1259 19368 TABLE public customers postgres
+397; 1259 17917 TABLE public knowledge_chunks postgres
+402; 1259 18311 TABLE public knowledge_folders postgres
+430; 1259 20462 TABLE public knowledge_semantic_cache postgres
+396; 1259 17902 TABLE public knowledge_sources postgres
+429; 1259 20325 TABLE public order_items postgres
+428; 1259 20295 TABLE public orders postgres
+420; 1259 19313 TABLE public organization_ai_settings postgres
+432; 1259 21408 TABLE public organization_members postgres
+415; 1259 18591 TABLE public organizations postgres
+4648; 0 0 COMMENT public COLUMN organizations.decision_model postgres
+425; 1259 19830 TABLE public reservation_calendar_events postgres
+424; 1259 19710 TABLE public reservations postgres
+395; 1259 17560 TABLE public rules postgres
+435; 1259 22119 TABLE public service_item_options postgres
+434; 1259 22096 TABLE public service_items postgres
+423; 1259 19596 TABLE public services postgres
+418; 1259 19159 TABLE public task_edges postgres
+416; 1259 19117 TABLE public task_flows postgres
+417; 1259 19136 TABLE public task_nodes postgres
+419; 1259 19179 TABLE public task_sessions postgres
+431; 1259 21394 TABLE public users postgres
+4307; 2606 18001 CONSTRAINT public agent_runs agent_runs_pkey postgres
+4360; 2606 19353 CONSTRAINT public ai_usage_logs ai_usage_logs_pkey postgres
+4389; 2606 20046 CONSTRAINT public booking_settings booking_settings_organization_id_key postgres
+4391; 2606 20044 CONSTRAINT public booking_settings booking_settings_pkey postgres
+4419; 2606 21934 CONSTRAINT public builtin_rule_overrides builtin_rule_overrides_organization_id_builtin_key_key postgres
+4421; 2606 21932 CONSTRAINT public builtin_rule_overrides builtin_rule_overrides_pkey postgres
+4384; 2606 19910 CONSTRAINT public calendar_integrations calendar_integrations_pkey postgres
+4326; 2606 18464 CONSTRAINT public checkpoint_blobs checkpoint_blobs_pkey postgres
+4321; 2606 18447 CONSTRAINT public checkpoint_migrations checkpoint_migrations_pkey postgres
+4329; 2606 18472 CONSTRAINT public checkpoint_writes checkpoint_writes_pkey postgres
+4323; 2606 18456 CONSTRAINT public checkpoints checkpoints_pkey postgres
+4313; 2606 18036 CONSTRAINT public conversation_messages conversation_messages_pkey postgres
+4309; 2606 18725 CONSTRAINT public conversations conversations_organization_id_session_id_key postgres
+4311; 2606 18024 CONSTRAINT public conversations conversations_pkey postgres
+4362; 2606 19377 CONSTRAINT public customers customers_pkey postgres
+4305; 2606 17926 CONSTRAINT public knowledge_chunks knowledge_chunks_pkey postgres
+4317; 2606 18769 CONSTRAINT public knowledge_folders knowledge_folders_organization_id_name_key postgres
+4319; 2606 18320 CONSTRAINT public knowledge_folders knowledge_folders_pkey postgres
+4409; 2606 20470 CONSTRAINT public knowledge_semantic_cache knowledge_semantic_cache_pkey postgres
+4298; 2606 17916 CONSTRAINT public knowledge_sources knowledge_sources_pkey postgres
+4405; 2606 20340 CONSTRAINT public order_items order_items_pkey postgres
+4400; 2606 20313 CONSTRAINT public orders orders_pkey postgres
+4354; 2606 19336 CONSTRAINT public organization_ai_settings organization_ai_settings_organization_id_key postgres
+4356; 2606 19334 CONSTRAINT public organization_ai_settings organization_ai_settings_pkey postgres
+4414; 2606 21419 CONSTRAINT public organization_members organization_members_organization_id_user_id_key postgres
+4416; 2606 21417 CONSTRAINT public organization_members organization_members_pkey postgres
+4332; 2606 18602 CONSTRAINT public organizations organizations_pkey postgres
+4381; 2606 19843 CONSTRAINT public reservation_calendar_events reservation_calendar_events_pkey postgres
+4376; 2606 19727 CONSTRAINT public reservations reservations_pkey1 postgres
+4295; 2606 17573 CONSTRAINT public rules rules_pkey postgres
+4425; 2606 22131 CONSTRAINT public service_item_options service_item_options_pkey postgres
+4423; 2606 22108 CONSTRAINT public service_items service_items_pkey postgres
+4370; 2606 19610 CONSTRAINT public services services_pkey postgres
+4345; 2606 19173 CONSTRAINT public task_edges task_edges_pkey postgres
+4336; 2606 19130 CONSTRAINT public task_flows task_flows_pkey postgres
+4339; 2606 19153 CONSTRAINT public task_nodes task_nodes_flow_id_node_key_key postgres
+4341; 2606 19151 CONSTRAINT public task_nodes task_nodes_pkey postgres
+4349; 2606 19193 CONSTRAINT public task_sessions task_sessions_organization_id_session_id_flow_id_key postgres
+4351; 2606 19191 CONSTRAINT public task_sessions task_sessions_pkey postgres
+4411; 2606 21402 CONSTRAINT public users users_pkey postgres
+4357; 1259 19360 INDEX public ai_usage_logs_organization_created_at_idx postgres
+4358; 1259 19361 INDEX public ai_usage_logs_organization_feature_created_at_idx postgres
+4327; 1259 18474 INDEX public checkpoint_blobs_thread_id_idx postgres
+4330; 1259 18475 INDEX public checkpoint_writes_thread_id_idx postgres
+4324; 1259 18473 INDEX public checkpoints_thread_id_idx postgres
+4392; 1259 20047 INDEX public idx_booking_settings_organization_id postgres
+4385; 1259 19917 INDEX public idx_calendar_integrations_organization_id postgres
+4386; 1259 19918 INDEX public idx_calendar_integrations_provider postgres
+4363; 1259 19430 INDEX public idx_customers_name postgres
+4364; 1259 19429 INDEX public idx_customers_organization_id postgres
+4365; 1259 19759 INDEX public idx_customers_organization_phone postgres
+4366; 1259 19431 INDEX public idx_customers_phone postgres
+4301; 1259 18627 INDEX public idx_knowledge_chunks_folder postgres
+4314; 1259 18770 INDEX public idx_knowledge_folders_org postgres
+4296; 1259 18614 INDEX public idx_knowledge_sources_folder postgres
+4401; 1259 20357 INDEX public idx_order_items_order postgres
+4402; 1259 20356 INDEX public idx_order_items_org postgres
+4403; 1259 20358 INDEX public idx_order_items_product postgres
+4393; 1259 20324 INDEX public idx_orders_created_at postgres
+4394; 1259 20321 INDEX public idx_orders_customer_phone postgres
+4395; 1259 20323 INDEX public idx_orders_delivery_status postgres
+4396; 1259 20320 INDEX public idx_orders_org postgres
+4397; 1259 20319 INDEX public idx_orders_org_order_code_unique postgres
+4398; 1259 20322 INDEX public idx_orders_status postgres
+4377; 1259 19854 INDEX public idx_reservation_calendar_events_organization_id postgres
+4378; 1259 19857 INDEX public idx_reservation_calendar_events_provider_event_id postgres
+4379; 1259 19855 INDEX public idx_reservation_calendar_events_reservation_id postgres
+4371; 1259 19763 INDEX public idx_reservations_customer_phone postgres
+4372; 1259 19760 INDEX public idx_reservations_organization_start_at postgres
+4373; 1259 20010 INDEX public idx_reservations_organization_time postgres
+4374; 1259 19762 INDEX public idx_reservations_status postgres
+4367; 1259 19753 INDEX public idx_services_organization_active postgres
+4342; 1259 19209 INDEX public idx_task_edges_flow_id postgres
+4343; 1259 19210 INDEX public idx_task_edges_source_node postgres
+4333; 1259 19207 INDEX public idx_task_flows_enabled postgres
+4334; 1259 19206 INDEX public idx_task_flows_organization_id postgres
+4337; 1259 19208 INDEX public idx_task_nodes_flow_id postgres
+4346; 1259 19212 INDEX public idx_task_sessions_expires_at postgres
+4347; 1259 19211 INDEX public idx_task_sessions_lookup postgres
+4302; 1259 26945 INDEX public knowledge_chunks_content_tsv_idx postgres
+4303; 1259 26946 INDEX public knowledge_chunks_keywords_idx postgres
+4315; 1259 28315 INDEX public knowledge_folders_org_active_idx postgres
+4406; 1259 20472 INDEX public knowledge_semantic_cache_created_at_idx postgres
+4407; 1259 20471 INDEX public knowledge_semantic_cache_org_idx postgres
+4299; 1259 19036 INDEX public knowledge_sources_storage_object_key postgres
+4352; 1259 19359 INDEX public organization_ai_settings_organization_id_idx postgres
+4412; 1259 21431 INDEX public organization_members_organization_id_idx postgres
+4417; 1259 21430 INDEX public organization_members_user_id_idx postgres
+4368; 1259 21840 INDEX public services_organization_name_unique_idx postgres
+4387; 1259 19916 INDEX public uq_calendar_integrations_org_provider_calendar postgres
+4300; 1259 23467 INDEX public uq_knowledge_sources_org_checksum postgres
+4382; 1259 19858 INDEX public uq_reservation_calendar_events_provider_event postgres
+4471; 2620 20048 TRIGGER public booking_settings set_booking_settings_updated_at postgres
+4466; 2620 19768 TRIGGER public customers set_customers_updated_at postgres
+4468; 2620 19769 TRIGGER public reservations set_reservations_updated_at postgres
+4467; 2620 19764 TRIGGER public services set_services_updated_at postgres
+4463; 2620 19217 TRIGGER public task_flows set_task_flows_updated_at postgres
+4464; 2620 19218 TRIGGER public task_nodes set_task_nodes_updated_at postgres
+4465; 2620 19219 TRIGGER public task_sessions set_task_sessions_updated_at postgres
+4470; 2620 19919 TRIGGER public calendar_integrations trg_calendar_integrations_updated_at postgres
+4469; 2620 19859 TRIGGER public reservation_calendar_events trg_reservation_calendar_events_updated_at postgres
+4430; 2606 18763 FK CONSTRAINT public agent_runs agent_runs_organization_id_fkey postgres
+4442; 2606 19354 FK CONSTRAINT public ai_usage_logs ai_usage_logs_organization_id_fkey postgres
+4458; 2606 21935 FK CONSTRAINT public builtin_rule_overrides builtin_rule_overrides_organization_id_fkey postgres
+4451; 2606 19911 FK CONSTRAINT public calendar_integrations calendar_integrations_organization_id_fkey postgres
+4432; 2606 18037 FK CONSTRAINT public conversation_messages conversation_messages_conversation_id_fkey postgres
+4433; 2606 18746 FK CONSTRAINT public conversation_messages conversation_messages_organization_id_fkey postgres
+4431; 2606 18733 FK CONSTRAINT public conversations conversations_organization_id_fkey postgres
+4443; 2606 19378 FK CONSTRAINT public customers customers_organization_id_fkey postgres
+4428; 2606 18719 FK CONSTRAINT public knowledge_chunks knowledge_chunks_organization_id_fkey postgres
+4429; 2606 19037 FK CONSTRAINT public knowledge_chunks knowledge_chunks_source_id_fkey postgres
+4434; 2606 18779 FK CONSTRAINT public knowledge_folders knowledge_folders_organization_id_fkey postgres
+4435; 2606 26905 FK CONSTRAINT public knowledge_folders knowledge_folders_parent_id_fkey postgres
+4427; 2606 18622 FK CONSTRAINT public knowledge_sources knowledge_sources_organization_id_fkey postgres
+4453; 2606 20346 FK CONSTRAINT public order_items order_items_order_id_fkey postgres
+4454; 2606 20341 FK CONSTRAINT public order_items order_items_organization_id_fkey postgres
+4452; 2606 20314 FK CONSTRAINT public orders orders_organization_id_fkey postgres
+4441; 2606 19337 FK CONSTRAINT public organization_ai_settings organization_ai_settings_organization_id_fkey postgres
+4456; 2606 21420 FK CONSTRAINT public organization_members organization_members_organization_id_fkey postgres
+4457; 2606 21425 FK CONSTRAINT public organization_members organization_members_user_id_fkey postgres
+4450; 2606 19844 FK CONSTRAINT public reservation_calendar_events reservation_calendar_events_reservation_id_fkey postgres
+4445; 2606 19733 FK CONSTRAINT public reservations reservations_conversation_id_fkey postgres
+4446; 2606 19738 FK CONSTRAINT public reservations reservations_customer_id_fkey1 postgres
+4447; 2606 19728 FK CONSTRAINT public reservations reservations_organization_id_fkey1 postgres
+4448; 2606 19743 FK CONSTRAINT public reservations reservations_service_id_fkey postgres
+4449; 2606 22145 FK CONSTRAINT public reservations reservations_service_item_id_fkey postgres
+4426; 2606 18609 FK CONSTRAINT public rules rules_organization_id_fkey postgres
+4461; 2606 22132 FK CONSTRAINT public service_item_options service_item_options_organization_id_fkey postgres
+4462; 2606 22137 FK CONSTRAINT public service_item_options service_item_options_service_item_id_fkey postgres
+4459; 2606 22109 FK CONSTRAINT public service_items service_items_organization_id_fkey postgres
+4460; 2606 22114 FK CONSTRAINT public service_items service_items_service_id_fkey postgres
+4444; 2606 19611 FK CONSTRAINT public services services_organization_id_fkey postgres
+4438; 2606 19174 FK CONSTRAINT public task_edges task_edges_flow_id_fkey postgres
+4436; 2606 19131 FK CONSTRAINT public task_flows task_flows_organization_id_fkey postgres
+4437; 2606 19154 FK CONSTRAINT public task_nodes task_nodes_flow_id_fkey postgres
+4439; 2606 19199 FK CONSTRAINT public task_sessions task_sessions_flow_id_fkey postgres
+4440; 2606 19194 FK CONSTRAINT public task_sessions task_sessions_organization_id_fkey postgres
+4455; 2606 21403 FK CONSTRAINT public users users_id_fkey postgres
+4620; 0 17990 ROW SECURITY public agent_runs postgres
+4629; 0 19342 ROW SECURITY public ai_usage_logs postgres
+4633; 0 19894 ROW SECURITY public calendar_integrations postgres
+4622; 0 18027 ROW SECURITY public conversation_messages postgres
+4621; 0 18012 ROW SECURITY public conversations postgres
+4630; 0 19368 ROW SECURITY public customers postgres
+4623; 0 18311 ROW SECURITY public knowledge_folders postgres
+4628; 0 19313 ROW SECURITY public organization_ai_settings postgres
+4636; 3256 21436 POLICY public organization_members organization_members_select_own postgres
+4632; 0 19710 ROW SECURITY public reservations postgres
+4631; 0 19596 ROW SECURITY public services postgres
+4626; 0 19159 ROW SECURITY public task_edges postgres
+4624; 0 19117 ROW SECURITY public task_flows postgres
+4625; 0 19136 ROW SECURITY public task_nodes postgres
+4627; 0 19179 ROW SECURITY public task_sessions postgres
+4634; 3256 21434 POLICY public users users_select_self postgres
+4635; 3256 21435 POLICY public users users_update_self postgres
