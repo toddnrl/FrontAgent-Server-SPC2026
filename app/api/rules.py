@@ -1,6 +1,7 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 
+from app.repositories.organization_repo import ORGANIZATION_ID_PATTERN
 from app.repositories.rule_repo import (
     create_rule,
     list_rules,
@@ -45,7 +46,8 @@ class RuleCreateRequest(BaseModel):
 
     organization_id: str = Field(
         ...,
-        example="org_test",
+        pattern=ORGANIZATION_ID_PATTERN,
+        example="a55c98f9-74ba-40d8-bc9d-bc3f1c0870da",
     )
 
     name: str = Field(
@@ -117,7 +119,7 @@ def create_rule_api(req: RuleCreateRequest):
 
 
 @router.get("")
-def list_rules_api(organization_id: str):
+def list_rules_api(organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN)):
     """
     특정 조직의 규칙 목록을 조회한다.
 
@@ -136,7 +138,7 @@ def list_rules_api(organization_id: str):
 @router.get("/{rule_id}")
 def get_rule_api(
     rule_id: str,
-    organization_id: str,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
 ):
     """
     특정 규칙 하나를 조회한다.
@@ -159,8 +161,8 @@ def get_rule_api(
 @router.patch("/{rule_id}")
 def update_rule_api(
     rule_id: str,
-    organization_id: str,
     req: RuleUpdateRequest,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
 ):
     """
     특정 규칙을 수정한다.
@@ -208,7 +210,7 @@ def update_rule_api(
 @router.post("/{rule_id}/reset")
 def reset_builtin_rule_api(
     rule_id: str,
-    organization_id: str,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
 ):
     """
     빌트인 규칙을 코드 기본값으로 되돌린다. 커스텀 규칙에는 사용할 수 없다.
@@ -235,7 +237,7 @@ def reset_builtin_rule_api(
 @router.delete("/{rule_id}")
 def delete_rule_api(
     rule_id: str,
-    organization_id: str,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
 ):
     """
     특정 규칙을 삭제한다. 빌트인 규칙은 삭제할 수 없다.
