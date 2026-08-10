@@ -1,16 +1,18 @@
+import re
+
 from app.core.db import supabase
 from app.repositories.organization_ai_settings_repo import get_ai_settings
 
-# API 문서/테스트에서 example="org_test"를 그대로 복사해 보내는 경우가 많아,
-# 실제 UUID가 아닌 이 별칭이 들어오면 기본 조직 UUID로 치환한다.
-DEFAULT_ORGANIZATION_ALIAS = "org_test"
-DEFAULT_ORGANIZATION_ID = "a55c98f9-74ba-40d8-bc9d-bc3f1c0870da"
+# organizations 테이블의 id는 UUID 컬럼이라, 형식이 다른 값을 그대로 쿼리에
+# 넘기면 PostgREST가 22P02(invalid input syntax for type uuid)로 500을 낸다.
+# 여기서 형식만 먼저 검증해 API 계층이 4xx로 깔끔하게 거절할 수 있게 한다.
+# 알 수 없는 값을 임의의 UUID로 치환하지는 않는다.
+ORGANIZATION_ID_PATTERN = r"^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+_ORGANIZATION_ID_RE = re.compile(ORGANIZATION_ID_PATTERN, re.IGNORECASE)
 
 
-def resolve_organization_id(organization_id: str) -> str:
-    if organization_id == DEFAULT_ORGANIZATION_ALIAS:
-        return DEFAULT_ORGANIZATION_ID
-    return organization_id
+def is_valid_organization_id(organization_id: str | None) -> bool:
+    return bool(organization_id) and bool(_ORGANIZATION_ID_RE.match(organization_id))
 
 
 def get_organization(organization_id: str) -> dict | None:

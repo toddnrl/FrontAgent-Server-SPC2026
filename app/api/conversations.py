@@ -1,6 +1,7 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
 
+from app.repositories.organization_repo import ORGANIZATION_ID_PATTERN
 from app.repositories.conversation_repo import (
     list_conversations,
     get_conversation,
@@ -27,7 +28,7 @@ class AIEnabledUpdateRequest(BaseModel):
 
 @router.get("/conversations")
 def get_conversation_list(
-    organization_id: str,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
     status: str | None = None,
     channel: str | None = None,
     limit: int = 50,
@@ -36,9 +37,9 @@ def get_conversation_list(
     관리자용 상담방 목록 조회 API.
 
     예:
-    GET /conversations?organization_id=org_test
-    GET /conversations?organization_id=org_test&status=open
-    GET /conversations?organization_id=org_test&channel=web_call
+    GET /conversations?organization_id=a55c98f9-74ba-40d8-bc9d-bc3f1c0870da
+    GET /conversations?organization_id=a55c98f9-74ba-40d8-bc9d-bc3f1c0870da&status=open
+    GET /conversations?organization_id=a55c98f9-74ba-40d8-bc9d-bc3f1c0870da&channel=web_call
     """
 
     conversations = list_conversations(
@@ -59,8 +60,8 @@ def get_conversation_list(
 
 @router.get("/conversations/by-session")
 def get_conversation_by_session_api(
-    organization_id: str,
     session_id: str,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
 ):
     """
     위젯이 자신의 상담방을 polling으로 확인할 때 쓰는 API.
@@ -68,7 +69,7 @@ def get_conversation_by_session_api(
     상담방이 아직 없으면(첫 메시지 전송 전) 404를 반환한다.
 
     예:
-    GET /conversations/by-session?organization_id=org_test&session_id=chat_123
+    GET /conversations/by-session?organization_id=a55c98f9-74ba-40d8-bc9d-bc3f1c0870da&session_id=chat_123
     """
 
     conversation = get_conversation_by_session(
@@ -88,7 +89,7 @@ def get_conversation_by_session_api(
 @router.get("/conversations/{conversation_id}")
 def get_conversation_detail(
     conversation_id: str,
-    organization_id: str,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
 ):
     """
     상담방 상세 정보 조회 API.
@@ -111,7 +112,7 @@ def get_conversation_detail(
 @router.get("/conversations/{conversation_id}/messages")
 def get_messages(
     conversation_id: str,
-    organization_id: str,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
     limit: int = 100,
 ):
     """
@@ -137,8 +138,8 @@ def get_messages(
 @router.post("/conversations/{conversation_id}/messages/admin")
 def send_admin_message(
     conversation_id: str,
-    organization_id: str,
     req: AdminMessageRequest,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
 ):
     """
     관리자가 직접 상담방에 메시지를 남기는 API.
@@ -179,7 +180,7 @@ def send_admin_message(
 @router.patch("/conversations/{conversation_id}/close")
 def close_conversation_api(
     conversation_id: str,
-    organization_id: str,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
 ):
     """
     상담방 종료 API.
@@ -203,8 +204,8 @@ def close_conversation_api(
 @router.patch("/conversations/{conversation_id}/ai-enabled")
 def update_ai_enabled(
     conversation_id: str,
-    organization_id: str,
     req: AIEnabledUpdateRequest,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
 ):
     """
     상담방의 AI 자동응답을 켜거나 끈다.
@@ -212,7 +213,7 @@ def update_ai_enabled(
     관리자 화면에서 사용할 API.
 
     예:
-    PATCH /conversations/{conversation_id}/ai-enabled?organization_id=org_test
+    PATCH /conversations/{conversation_id}/ai-enabled?organization_id=a55c98f9-74ba-40d8-bc9d-bc3f1c0870da
 
     Body:
     {
@@ -237,7 +238,7 @@ def update_ai_enabled(
 @router.delete("/conversations/{conversation_id}")
 def delete_conversation_api(
     conversation_id: str,
-    organization_id: str,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
 ):
     """
     상담방(채팅/통화 내역)과 메시지를 삭제한다.

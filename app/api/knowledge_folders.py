@@ -1,7 +1,8 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 
 from app.rag.retriever import clear_semantic_cache
+from app.repositories.organization_repo import ORGANIZATION_ID_PATTERN
 from app.repositories.knowledge_folder_repo import (
     create_knowledge_folder,
     list_knowledge_folders,
@@ -29,7 +30,8 @@ def model_to_dict(model: BaseModel) -> dict:
 class KnowledgeFolderCreateRequest(BaseModel):
     organization_id: str = Field(
         ...,
-        example="org_test",
+        pattern=ORGANIZATION_ID_PATTERN,
+        example="a55c98f9-74ba-40d8-bc9d-bc3f1c0870da",
     )
     name: str = Field(
         ...,
@@ -68,7 +70,7 @@ def create_knowledge_folder_api(req: KnowledgeFolderCreateRequest):
 
 
 @router.get("")
-def list_knowledge_folders_api(organization_id: str):
+def list_knowledge_folders_api(organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN)):
     folders = list_knowledge_folders(organization_id)
 
     return {
@@ -81,7 +83,7 @@ def list_knowledge_folders_api(organization_id: str):
 @router.get("/{folder_id}")
 def get_knowledge_folder_api(
     folder_id: str,
-    organization_id: str,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
 ):
     folder = get_knowledge_folder(
         organization_id=organization_id,
@@ -100,8 +102,8 @@ def get_knowledge_folder_api(
 @router.patch("/{folder_id}")
 def update_knowledge_folder_api(
     folder_id: str,
-    organization_id: str,
     req: KnowledgeFolderUpdateRequest,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
 ):
     raw_data = model_to_dict(req)
 
@@ -141,7 +143,7 @@ def update_knowledge_folder_api(
 @router.delete("/{folder_id}")
 def delete_knowledge_folder_api(
     folder_id: str,
-    organization_id: str,
+    organization_id: str = Query(..., pattern=ORGANIZATION_ID_PATTERN),
 ):
     deleted = delete_knowledge_folder(
         organization_id=organization_id,

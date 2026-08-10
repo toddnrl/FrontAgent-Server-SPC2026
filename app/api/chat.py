@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field, field_validator
 
 from app.graph.graph_runtime import build_initial_state, get_agent_graph, graph_config_for, graph_execution_kwargs
 from app.graph.task_context import hydrate_task_result_for_response
-from app.repositories.organization_repo import resolve_organization_id
+from app.repositories.organization_repo import is_valid_organization_id
 from app.services.agent_stream import (
     AGENT_ERROR_MESSAGE,
     AI_DISABLED_MESSAGE,
@@ -38,8 +38,10 @@ class ChatRequest(BaseModel):
     channel: Literal["web_chat", "web_call", "voice"] = "web_chat"
     @field_validator("organization_id")
     @classmethod
-    def _resolve_organization_id(cls, value: str) -> str:
-        return resolve_organization_id(value)
+    def _validate_organization_id(cls, value: str) -> str:
+        if not is_valid_organization_id(value):
+            raise ValueError("organization_id는 올바른 UUID 형식이어야 합니다.")
+        return value
 
 
 class ChatResponse(BaseModel):
