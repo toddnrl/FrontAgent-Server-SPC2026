@@ -1,0 +1,47 @@
+;
+; Archive created at 2026-08-04 06:35:21 UTC
+;     dbname: postgres
+;     TOC Entries: 37
+;     Compression: gzip
+;     Dump Version: 1.16-0
+;     Format: CUSTOM
+;     Integer: 4 bytes
+;     Offset: 8 bytes
+;     Dumped from database version: 17.6
+;     Dumped by pg_dump version: 17.10 (Debian 17.10-1.pgdg13+1)
+;
+;
+; Selected TOC Entries:
+;
+4434; 0 18591 TABLE DATA public organizations postgres
+4426; 0 17990 TABLE DATA public agent_runs postgres
+4440; 0 19342 TABLE DATA public ai_usage_logs postgres
+4446; 0 20020 TABLE DATA public booking_settings postgres
+4452; 0 21923 TABLE DATA public builtin_rule_overrides postgres
+4445; 0 19894 TABLE DATA public calendar_integrations postgres
+4432; 0 18457 TABLE DATA public checkpoint_blobs postgres
+4430; 0 18443 TABLE DATA public checkpoint_migrations postgres
+4433; 0 18465 TABLE DATA public checkpoint_writes postgres
+4431; 0 18448 TABLE DATA public checkpoints postgres
+4427; 0 18012 TABLE DATA public conversations postgres
+4428; 0 18027 TABLE DATA public conversation_messages postgres
+4441; 0 19368 TABLE DATA public customers postgres
+4424; 0 17902 TABLE DATA public knowledge_sources postgres
+4425; 0 17917 TABLE DATA public knowledge_chunks postgres
+4429; 0 18311 TABLE DATA public knowledge_folders postgres
+4449; 0 20462 TABLE DATA public knowledge_semantic_cache postgres
+4447; 0 20295 TABLE DATA public orders postgres
+4448; 0 20325 TABLE DATA public order_items postgres
+4439; 0 19313 TABLE DATA public organization_ai_settings postgres
+4450; 0 21394 TABLE DATA public users postgres
+4451; 0 21408 TABLE DATA public organization_members postgres
+4442; 0 19596 TABLE DATA public services postgres
+4453; 0 22096 TABLE DATA public service_items postgres
+4443; 0 19710 TABLE DATA public reservations postgres
+4444; 0 19830 TABLE DATA public reservation_calendar_events postgres
+4423; 0 17560 TABLE DATA public rules postgres
+4454; 0 22119 TABLE DATA public service_item_options postgres
+4435; 0 19117 TABLE DATA public task_flows postgres
+4437; 0 19159 TABLE DATA public task_edges postgres
+4436; 0 19136 TABLE DATA public task_nodes postgres
+4438; 0 19179 TABLE DATA public task_sessions postgres
