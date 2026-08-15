@@ -12,8 +12,6 @@ supabase/.temp/
 .claude/
 .agents/
 skills-lock.json
-.env.migrationbackups/
 *.sql
-backups/
 backups/
 .env.migration
