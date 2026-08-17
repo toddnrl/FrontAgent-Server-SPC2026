@@ -1,4 +1,8 @@
-from fastapi import FastAPI
+import logging
+
+from fastapi import FastAPI, Request
+from fastapi.exception_handlers import request_validation_exception_handler
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
@@ -23,11 +27,28 @@ from app.api import (
     orders,
 )
 
+logger = logging.getLogger(__name__)
+
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
     lifespan=lifespan_graph,
 )
+
+
+@app.exception_handler(RequestValidationError)
+async def logging_validation_exception_handler(request: Request, exc: RequestValidationError):
+    """
+    요청 검증 실패(422)를 서버 로그에 남긴다. 응답 형식은 FastAPI 기본
+    핸들러에 그대로 위임해 API 계약(응답 바디 구조)은 바꾸지 않는다.
+
+    organization_id처럼 클라이언트가 잘못된 값을 보내는 문제는 지금까지
+    로그 없이 조용히 422만 나가서, 운영 중 얼마나 자주 발생하는지 알 방법이
+    없었다.
+    """
+    fields = ", ".join(".".join(str(part) for part in error["loc"]) for error in exc.errors())
+    logger.warning("요청 검증 실패 (422): %s %s - 필드: %s", request.method, request.url.path, fields)
+    return await request_validation_exception_handler(request, exc)
 
 app.add_middleware(
     CORSMiddleware,
